@@ -1,6 +1,6 @@
-REM The next four lines open Notepad in Windows and type "Hello World!"
+REM The next four lines open Notepad in Windows and type "This is the default payload"
 GUI r
 STRING notepad
 ENTER
 DELAY 250
-STRING Hello World!
+STRING This is the default payload
