@@ -127,7 +127,7 @@ layout = KeyboardLayout(kbd)
 supervisor.disable_autoreload()
 
 # sleep at the start to allow the device to be recognized by the host computer
-time.sleep(.5)
+time.sleep(1)
 
 led_pwm_up(led)
 
@@ -137,19 +137,25 @@ button1_pin.pull = Pull.UP      # turn on internal pull-up resistor
 button1 =  Debouncer(button1_pin)
 
 #init payload selection switch
-payload1Pin = digitalio.DigitalInOut(GP4)
-payload1Pin.switch_to_input(pull=digitalio.Pull.UP)
-payload2Pin = digitalio.DigitalInOut(GP5)
-payload2Pin.switch_to_input(pull=digitalio.Pull.UP)
-payload3Pin = digitalio.DigitalInOut(GP10)
-payload3Pin.switch_to_input(pull=digitalio.Pull.UP)
-payload4Pin = digitalio.DigitalInOut(GP11)
-payload4Pin.switch_to_input(pull=digitalio.Pull.UP)
+payloadAPin = digitalio.DigitalInOut(GP1)
+payloadAPin.switch_to_input(pull=digitalio.Pull.UP)
+payloadBPin = digitalio.DigitalInOut(GP2)
+payloadBPin.switch_to_input(pull=digitalio.Pull.UP)
+payloadCPin = digitalio.DigitalInOut(GP3)
+payloadCPin.switch_to_input(pull=digitalio.Pull.UP)
+payloadDPin = digitalio.DigitalInOut(GP4)
+payloadDPin.switch_to_input(pull=digitalio.Pull.UP)
+payloadEPin = digitalio.DigitalInOut(GP5)
+payloadEPin.switch_to_input(pull=digitalio.Pull.UP)
+payloadFPin = digitalio.DigitalInOut(GP6)
+payloadFPin.switch_to_input(pull=digitalio.Pull.UP)
+payloadGPin = digitalio.DigitalInOut(GP7)
+payloadGPin.switch_to_input(pull=digitalio.Pull.UP)
 
 def getProgrammingStatus():
     # check GP0 for setup mode
     # see setup mode for instructions
-    progStatusPin = digitalio.DigitalInOut(GP0)
+    progStatusPin = digitalio.DigitalInOut(GP15)
     progStatusPin.switch_to_input(pull=digitalio.Pull.UP)
     progStatus = not progStatusPin.value
     return(progStatus)
@@ -179,34 +185,50 @@ def runScript(file):
         print("Unable to open file ", file)
 
 def selectPayload():
-    global payload1Pin, payload2Pin, payload3Pin, payload4Pin
+    global payloadAPin, payloadBPin, payloadCPin, payloadDPin
     payload = "payload.dd"
     # check switch status
-    # payload1 = GPIO4 to GND
-    # payload2 = GPIO5 to GND
-    # payload3 = GPIO10 to GND
-    # payload4 = GPIO11 to GND
-    payload1State = not payload1Pin.value
-    payload2State = not payload2Pin.value
-    payload3State = not payload3Pin.value
-    payload4State = not payload4Pin.value
+    # payloadA = GPIO1 to GND
+    # payloadB = GPIO2 to GND
+    # payloadC = GPIO3 to GND
+    # payloadD = GPIO4 to GND
+    # payloadE = GPIO5 to GND
+    # payloadF = GPIO6 to GND
+    # payloadG = GPIO7 to GND
+    payloadAState = not payloadAPin.value
+    payloadBState = not payloadBPin.value
+    payloadCState = not payloadCPin.value
+    payloadDState = not payloadDPin.value
+    payloadEState = not payloadEPin.value
+    payloadFState = not payloadFPin.value
+    payloadGState = not payloadGPin.value
 
 
-    if(payload1State == True):
-        payload = "payload.dd"
 
-    elif(payload2State == True):
-        payload = "payload2.dd"
+    if(payloadAState == True):
+        payload = "payloadA.dd"
 
-    elif(payload3State == True):
-        payload = "payload3.dd"
+    elif(payloadBState == True):
+        payload = "payloadB.dd"
 
-    elif(payload4State == True):
-        payload = "payload4.dd"
+    elif(payloadCState == True):
+        payload = "payloadC.dd"
+
+    elif(payloadDState == True):
+        payload = "payloadD.dd"
+
+    elif(payloadEState == True):
+        payload = "payloadE.dd"
+
+    elif(payloadFState == True):
+        payload = "payloadF.dd"
+
+    elif(payloadGState == True):
+        payload = "payloadG.dd"
 
     else:
         # if all pins are high, then no switch is present
-        # default to payload1
+        # default to payloadA
         payload = "payload.dd"
 
 
